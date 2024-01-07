@@ -1,0 +1,72 @@
+@font-face{
+    font-family: time-font;
+    src:url(time.ttf)
+}
+
+body{
+    margin: 0px;
+    font-family: time-font;
+    font-size: 100px;
+}
+
+#wrap{
+    position: relative;
+    overflow: hidden;
+}
+
+section{
+    box-sizing: border-box;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#indicator{
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#indicator > div{
+    background-color: white;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.live{
+    background-image: radial-gradient(#000015,#000000);
+    color: white;
+    height: 100%;
+}
+
+.live-date{
+    text-align: center;
+    font-size: 175px;
+    position: relative;
+    top: 40%;
+    transform: translateY(-40%);
+    z-index: 1;
+}
+
+.live-time{
+    text-align: center;
+    font-size: 175px;
+    position: relative;
+    top: 40%;
+    transform: translateY(-40%);
+    z-index: 1;
+}
+
+.active{
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 10px !important;
+    margin: 5px !important;
+}
