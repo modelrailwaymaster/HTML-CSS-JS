@@ -226,7 +226,6 @@ document.addEventListener("DOMContentLoaded", function() {
     var start = document.getElementById("start")
     var running = false
     var done = false
-    var last = []
 
     start.addEventListener("click", function () {
         if (done) {
