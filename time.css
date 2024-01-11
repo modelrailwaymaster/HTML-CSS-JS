@@ -1,0 +1,146 @@
+@font-face{
+    font-family: time-font;
+    src:url(time.ttf)
+}
+
+body{
+    margin: 0px;
+    font-family: time-font;
+    font-size: 100px;
+}
+
+#wrap{
+    position: relative;
+    overflow: hidden;
+}
+
+section{
+    box-sizing: border-box;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#indicator{
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#indicator > div{
+    background-color: white;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.live{
+    background-image: radial-gradient(#00002f,#000000);
+    color: white;
+    height: 100%;
+}
+
+.live-date{
+    text-align: center;
+    font-size: 175px;
+    position: relative;
+    top: 40%;
+    transform: translateY(-40%);
+    z-index: 2;
+}
+
+.live-time{
+    text-align: center;
+    color: white;
+    font-size: 175px;
+    position: absolute;
+    top: 50vh;
+    z-index: 10;
+    width: 100vw;
+    transition: transform 1.25s ease, top 1.25s ease, font-size 1.25s ease;
+    translate: 0px;
+}
+
+.active{
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 10px !important;
+    margin: 5px !important;
+}
+
+.timer-section{
+    height: 100%;
+    background-image: url(sunset.jfif);
+    background-size: 100vw 100vh;
+}
+
+.fader{
+    position: absolute;
+    top: 95vh;
+    width: 110vw;
+    height: 150px;
+    background-color: black;
+    filter: blur(50px);
+    z-index: 1;
+}
+
+.timer-grid{
+    display: grid;
+    grid-template-columns: repeat(8,80px);
+    position: absolute;
+    top: 30vh;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.timer-input{
+    align-self: center;
+    position: relative;
+    top: 10px;
+    align-items: center;
+}
+
+.timer{
+    font-size: 175px;
+    text-align: center;
+    color: white;
+}
+
+.timer-arrow{
+    position: relative;
+    margin: auto;
+}
+
+.double-grid{
+    grid-column: span 2;
+}
+
+.timer-start{
+    grid-column: span 4;
+    text-align: center;
+    border: white;
+    border-width: 5px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    border-style: solid;
+}
+
+.timer-reset{
+    cursor: pointer;
+}
+
+.timer-reset-container{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-60%);
+    position: relative;
+    width: 63px;
+    height: 63px;
+}
