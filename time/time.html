@@ -5,11 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="./time.css">
+        <link rel="stylesheet" href="./timer.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <title>Website</title>
     </head>
     <body>
         
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
         <div class="wrap">
             <div id="wrap">
@@ -45,13 +47,24 @@
                             <div></div>
                             <div class="timer-arrow"><i class="fa-solid fa-caret-down" id="sec-dec-10" style="color: #ffffff; cursor: pointer;"></i></div>
                             <div class="timer-arrow"><i class="fa-solid fa-caret-down" id="sec-dec-1" style="color: #ffffff; cursor: pointer;"></i></div>
-                            <div></div>
-                            <div></div>
+                            <div class="double-grid"><div class="timer-reset-container"><i id="timer-reset" class="fa-solid fa-arrow-rotate-right fa-2xs timer-reset" style="color: #ffffff;"></i></div></div>
                             <div class="timer-start double-grid" id="start">Start</div>
+                            <div class="double-grid"><div class="timer-volume-container">
+                                <i id="timer-volume-unmute" class="fa-solid fa-volume-high fa-2xs timer-volume-unmute" style="color: #ffffff;"></i>
+                                <i id="timer-volume-mute" class="fa-solid fa-volume-xmark fa-2xs timer-volume-mute hide" style="color: #ffffff;"></i>
+                            </div></div>
                         </div>
                     </div>
                 </section>
-                <section>three</section>
+                <div class="fader-2"></div>
+                <section>
+                    <div class="stopwatch-section" id="stopwatch">
+                        <div id="background-falling"></div>
+                        <div id="background-blue"></div>
+                    </div>
+
+                </section>
+                <div class="fader-3"></div>
                 <section>four</section>
             </div>
         </div>  

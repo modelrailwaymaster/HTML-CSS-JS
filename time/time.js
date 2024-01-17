@@ -1,4 +1,5 @@
-var liveTimeTop = false
+//global
+var mute = false
 
 //scroll bar
 document.addEventListener("DOMContentLoaded", function() {
@@ -30,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (index === fps.currentSlide) {
                 slideIndicator.className = "active";
 
+                // move live time
                 LiveTimePos = parseInt((document.getElementById("live-time").style.transform).replace("translateY(","").replace("px)",""))
                 if (isNaN(LiveTimePos)) {
                     LiveTimePos = 0
@@ -49,13 +51,19 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (index === 0) {
                         document.getElementById("live-time").style.top = "50vh"
                         document.getElementById("live-time").style.transform = "translateY(0px)"
-                        document.getElementById("live-time").style.fontSize = "175px"
+                        document.getElementById("live-time").style.fontSize = "clamp(var(--min-font-size),var(--default-font-size),var(--default-font-size))"
                     } else {
                         document.getElementById("live-time").style.top = "0px"
                         document.getElementById("live-time").style.transform = "translateY("+String(index*window.innerHeight)+"px)"
                         document.getElementById("live-time").style.fontSize = "100px"
                     }
                 }
+
+                document.getElementById("wrap").addEventListener("transitionend", function(child){
+                    if (child.target.id == "live-time") {
+                        document.getElementById("live-time").style.transition = ""
+                    }
+                })
 
             } else {
                 slideIndicator.className = "";
@@ -206,17 +214,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // double digit
-        if (parseInt(sec.innerHTML) <= 9 ) {
-            sec.innerHTML = "0"+String(parseInt(sec.innerHTML))
-        }
-
-        if (parseInt(min.innerHTML) <= 9 ) {
-            min.innerHTML = "0"+String(parseInt(min.innerHTML))
-        }
-
-        if (parseInt(hour.innerHTML) <= 9 ) {
-            hour.innerHTML = "0"+String(parseInt(hour.innerHTML))
-        }
+        double_digits()
     }
 })
 
@@ -224,47 +222,151 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("DOMContentLoaded", function() {
 
     var start = document.getElementById("start")
+    var rest = document.getElementById("timer-reset")
+    var timerDoneSound = new Audio("alarm.mp3")
+    var started = false
     var running = false
     var done = false
+    var last = []
 
-    start.addEventListener("click", function () {
-        if (done) {
-        } else if (running) {
+    setInterval(function(){
+        if (running) {
+            sec.innerHTML = parseInt(sec.innerHTML)-1
+
+            // double digit
+            double_digits()
+    
+            // check if done
+            if ( parseInt(sec.innerHTML) <= 0 && parseInt(min.innerHTML) <= 0 && parseInt(hour.innerHTML) <= 0 ) {
+                sec.innerHTML = "00"
+                running = false
+                done = true
+                start.innerHTML = "Start"
+                if (!mute) {timerDoneSound.play()}
+            }
+        }
+    },1000)
+
+    start.addEventListener("click", function(){
+        if (running && started) {
             running = false
             start.innerHTML = "Resume"
-            console.log("test1")
-            clearInterval(timer)
         } else {
             running = true
+            started = true
             start.innerHTML = "Pause"
-            
-            const timer = setInterval(function (){
-                sec.innerHTML = parseInt(sec.innerHTML)-1
-    
-                // double digit
-                if (parseInt(sec.innerHTML) <= 9 ) {
-                    sec.innerHTML = "0"+String(parseInt(sec.innerHTML))
-                }
-    
-                if (parseInt(min.innerHTML) <= 9 ) {
-                    min.innerHTML = "0"+String(parseInt(min.innerHTML))
-                }
-    
-                if (parseInt(hour.innerHTML) <= 9 ) {
-                    hour.innerHTML = "0"+String(parseInt(hour.innerHTML))
-                }
-    
-                // check if done
-                if ( parseInt(sec.innerHTML) <= 0 && parseInt(min.innerHTML) <= 0 && parseInt(hour.innerHTML) <= 0 ) {
-                    sec.innerHTML = "00"
-                    running = false
-                    done = true
-                    start.innerHTML = "Reset"
-                    clearInterval(timer)
-                }
-        },1000)
+            last = [hour.innerHTML,min.innerHTML,sec.innerHTML]
+        }
+    } )
 
-       }
+    rest.addEventListener("click", function() {
+        running = false
+        done = true
+        start.innerHTML = "Start"
+        hour.innerHTML = last[0]
+        min.innerHTML = last[1]
+        sec.innerHTML = last[2]
+        double_digits()
     })
 
+})
+
+// reset spin
+document.addEventListener("DOMContentLoaded", function() {
+    $(".timer-reset").hover(function () {
+        $(this).toggleClass("fa-spin");
+    });
+})
+
+// swaps volume icons
+document.addEventListener("DOMContentLoaded", function() {
+    $(".timer-volume-unmute").click(function () {
+        $(this).toggleClass("hide");
+        $(".timer-volume-mute").toggleClass("hide")
+        mute = true
+    });
+})
+
+document.addEventListener("DOMContentLoaded", function() {
+    $(".timer-volume-mute").click(function () {
+        $(this).toggleClass("hide");
+        $(".timer-volume-unmute").toggleClass("hide")
+        mute = false
+    });
+})
+
+
+// double digits
+function double_digits () {
+    if (parseInt(sec.innerHTML) <= 9 ) {
+        sec.innerHTML = "0"+String(parseInt(sec.innerHTML))
+    }
+
+    if (parseInt(min.innerHTML) <= 9 ) {
+        min.innerHTML = "0"+String(parseInt(min.innerHTML))
+    }
+
+    if (parseInt(hour.innerHTML) <= 9 ) {
+        hour.innerHTML = "0"+String(parseInt(hour.innerHTML))
+    }
+}
+
+//stopwatch background
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // blue
+    for (let i = 0; i < 15+Math.floor(Math.random()*100); i++) {
+        const backgroundBlue = document.getElementById("background-blue");
+        const Blue = document.createElement("div")
+
+        Blue.style.left = String(Math.floor(Math.random()*window.innerWidth))+"px"
+        Blue.style.top = String(Math.floor(Math.random()*window.innerHeight))+"px"
+        Blue.style.width = String(Math.floor(Math.random()*300))+"px"
+        Blue.style.height = String(Math.floor(Math.random()*300))+"px"
+        Blue.style.borderRadius = "50%"
+        Blue.style.background = "radial-gradient(rgba(0,0,255,"+String(Math.random())+"), rgba(0,0,0,0), rgba(0,0,0,0))"
+        Blue.style.zIndex = 1
+        Blue.style.position = "absolute"
+        backgroundBlue.appendChild(Blue)
+
+    }
+
+    //falling
+    count = 0
+    setInterval( function() {
+        for (let i = 0; i < 1+Math.floor(Math.random()*1); i++) {
+
+            fallingClasses = ["fa-moon","fa-meteor","fa-satellite","fa-face-smile","fa-face-grin-hearts","fa-face-angry","fa-face-grin-tears","fa-lemon","fa-apple-whole"]
+
+            const backgroundFalling = document.getElementById("background-falling");
+            const pic = document.createElement("div")
+
+            pic.id = "falling-image-"+count
+
+            pic.classList.add("fa-solid")
+            pic.classList.add(fallingClasses[Math.floor(Math.random() * fallingClasses.length)])
+
+            pic.style = "color: rgba(255,255,255,0.8);font-size: 20px; line-height: .1em; vertical-align: 0.22em;"
+            pic.style.left = String(Math.floor(Math.random()*window.innerWidth))+"px"
+            pic.style.zIndex = "100"
+            pic.style.top = "-20px"
+            pic.style.position = "absolute"
+            pic.style.transition = "all 7s linear"
+            pic.style.transform = "translateY(0vh)"
+            backgroundFalling.appendChild(pic)
+            count++
+
+        }
+    },600)
+
+    setInterval(function() {
+        const backgroundFalling = document.getElementById("background-falling");
+        backgroundFalling.childNodes.forEach((pic) =>
+        pic.style.transform = "translateY(103vh)"
+        )
+    },650)
+
+    document.getElementById("background-falling").addEventListener("transitionend", function(child){
+        document.getElementById(child.target.id).remove()
+    })
 })

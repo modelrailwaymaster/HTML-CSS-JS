@@ -1,0 +1,97 @@
+:root{
+    --timer-num-min: 40px;
+    --timer-num-max: 100px;
+    --timer-colon-min: 30px;
+    --timer-colon-max: 45px;
+    --timer-arrow-min: 50px;
+    --timer-arrow-max: 7vw;
+    --timer-start-min: 50px;
+    --timer-start-max: 5vw;
+    --timer-default-font-size: 10vw;
+    --timer-min-font-size: 90px;
+}
+
+.timer-section{
+    height: 100%;
+    background-image: url(sunset.jfif);
+    background-size: 2000px 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.timer-grid{
+    display: grid;
+    grid-template-columns: repeat(2,minmax(var(--timer-num-min),var(--timer-num-max))
+                                    minmax(var(--timer-num-min),var(--timer-num-max))
+                                    minmax(var(--timer-colon-min),var(--timer-colon-max)))
+                            minmax(var(--timer-num-min),var(--timer-num-max))
+                            minmax(var(--timer-num-min),var(--timer-num-max));
+    position: absolute;
+    top: 25vh;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 2;
+}
+
+.timer-input{
+    align-self: center;
+    position: relative;
+    top: 10px;
+    align-items: center;
+}
+
+.timer{
+    font-size: clamp(var(--timer-min-font-size),var(--timer-default-font-size),var(--timer-default-font-size));
+    text-align: center;
+    color: white;
+}
+
+.timer-arrow{
+    position: relative;
+    margin: auto;
+    font-size: clamp(var(--timer-arrow-min),var(--timer-arrow-max),var(--timer-arrow-max));
+}
+
+.timer-start{
+    grid-column: span 4;
+    text-align: center;
+    border: white;
+    border-width: 5px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    border-style: solid;
+    font-size: clamp(var(--timer-start-min),var(--timer-start-max),var(--timer-start-max));
+}
+
+.timer-reset{
+    cursor: pointer;
+    font-size: clamp(var(--timer-arrow-min),var(--timer-arrow-max),var(--timer-arrow-max));
+}
+
+.timer-reset-container{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-60%);
+    position: relative;
+    width: 63px;
+    height: 63px;
+}
+
+.timer-volume-container{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-60%);
+    position: relative;
+    width: 63px;
+    height: 63px;
+}
+
+.timer-volume-unmute{
+    cursor: pointer !important;
+}
+
+.timer-volume-mute{
+    cursor: pointer !important;
+}

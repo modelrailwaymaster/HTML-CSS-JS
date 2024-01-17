@@ -1,3 +1,8 @@
+:root{
+    --default-font-size: 10vw;
+    --min-font-size: 75px;
+}
+
 @font-face{
     font-family: time-font;
     src:url(time.ttf)
@@ -6,7 +11,7 @@
 body{
     margin: 0px;
     font-family: time-font;
-    font-size: 100px;
+    font-size: 100px
 }
 
 #wrap{
@@ -53,6 +58,7 @@ section{
     top: 40%;
     transform: translateY(-40%);
     z-index: 2;
+    font-size: clamp(var(--min-font-size),var(--default-font-size),var(--default-font-size));
 }
 
 .live-time{
@@ -63,8 +69,8 @@ section{
     top: 50vh;
     z-index: 10;
     width: 100vw;
-    transition: transform 1.25s ease, top 1.25s ease, font-size 1.25s ease;
     translate: 0px;
+    font-size: clamp(var(--min-font-size),var(--default-font-size),var(--default-font-size));
 }
 
 .active{
@@ -72,12 +78,6 @@ section{
     height: 20px !important;
     border-radius: 10px !important;
     margin: 5px !important;
-}
-
-.timer-section{
-    height: 100%;
-    background-image: url(sunset.jfif);
-    background-size: 100vw 100vh;
 }
 
 .fader{
@@ -90,44 +90,37 @@ section{
     z-index: 1;
 }
 
-.timer-grid{
-    display: grid;
-    grid-template-columns: repeat(8,80px);
+.fader-2{
     position: absolute;
-    top: 30vh;
-    left: 50%;
-    transform: translate(-50%);
+    top: 190vh;
+    width: 110vw;
+    height: 200px;
+    background-color: black;
+    filter: blur(70px);
+    z-index: 2;
 }
 
-.timer-input{
-    align-self: center;
-    position: relative;
-    top: 10px;
-    align-items: center;
-}
-
-.timer{
-    font-size: 175px;
-    text-align: center;
-    color: white;
-}
-
-.timer-arrow{
-    position: relative;
-    margin: auto;
+.fader-3{
+    position: absolute;
+    top: 290vh;
+    width: 110vw;
+    height: 200px;
+    background-color: black;
+    filter: blur(70px);
+    z-index: 2;
 }
 
 .double-grid{
     grid-column: span 2;
 }
 
-.timer-start{
-    grid-column: span 4;
-    text-align: center;
-    border: white;
-    border-width: 5px;
-    border-radius: 20px;
+.hide{
+    display: none !important;
+}
+
+.stopwatch-section{
     color: white;
-    cursor: pointer;
-    border-style: solid;
+    background-image: radial-gradient(black, rgba(0,0,20,1));
+    height: 100%;
+    background-size: 100vw 100vh;
 }
